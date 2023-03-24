@@ -18,7 +18,7 @@ const AIForm = ({
   setTemplate,
   setImagePreview,
 }: AIFormProps) => {
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   const [role, setRole] = useState('Attendee');
   const [imageFile, setImageFile] = useState<File>();
 
@@ -32,7 +32,7 @@ const AIForm = ({
     const url = new URL(uploadImageResponse.data.data.url);
 
     const formSubmitData: FormData = {
-      name,
+      name: '',
       role,
       imageUrl: `${url.origin}/dl${url.pathname}`,
     };
@@ -59,7 +59,7 @@ const AIForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="">
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label htmlFor="name" className="block  font-medium mb-2">
           Name:
         </label>
@@ -72,7 +72,7 @@ const AIForm = ({
           onChange={(event) => setName(event.target.value)}
           className="w-full border border-gray-400 p-1 text-black"
         />
-      </div>
+      </div> */}
       <div className="mb-4">
         <label htmlFor="role" className="block font-medium mb-2">
           Role:
