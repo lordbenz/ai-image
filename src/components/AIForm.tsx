@@ -7,14 +7,18 @@ type AIFormProps = {
   onSubmit: (data: FormData) => void;
   isLoading: boolean;
   setIsLoading: (status: boolean) => void;
+  setTemplate: (type: string) => void;
+  setImagePreview: (type: string) => void;
 };
 
-export const AIForm = ({
+const AIForm = ({
   onSubmit,
   isLoading,
   setIsLoading,
+  setTemplate,
+  setImagePreview,
 }: AIFormProps) => {
-  const [name, setName] = useState('');
+  // const [name, setName] = useState('');
   const [role, setRole] = useState('');
   const [imageFile, setImageFile] = useState<File>();
 
@@ -28,7 +32,7 @@ export const AIForm = ({
     const url = new URL(uploadImageResponse.data.data.url);
 
     const formSubmitData: FormData = {
-      name,
+      name: '',
       role,
       imageUrl: `${url.origin}/dl${url.pathname}`,
     };
@@ -40,14 +44,22 @@ export const AIForm = ({
   ) => {
     if (event.target.files?.[0]) {
       setImageFile(event.target.files[0]);
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = function () {
+        setImagePreview(reader.result as string);
+      };
+      reader.onerror = function (error) {
+        console.error('Error: ', error);
+      };
     }
   };
 
-  const disabled = !imageFile || name === '' || role === '';
+  const disabled = !imageFile || role === '';
 
   return (
     <form onSubmit={handleSubmit} className="">
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label htmlFor="name" className="block  font-medium mb-2">
           Name:
         </label>
@@ -60,7 +72,7 @@ export const AIForm = ({
           onChange={(event) => setName(event.target.value)}
           className="w-full border border-gray-400 p-1 text-black"
         />
-      </div>
+      </div> */}
       <div className="mb-4">
         <label htmlFor="role" className="block font-medium mb-2">
           Role:
@@ -69,7 +81,15 @@ export const AIForm = ({
           id="role"
           name="role"
           value={role}
-          onChange={(event) => setRole(event.target.value)}
+          onChange={(event) => {
+            setRole(event.target.value);
+
+            setTemplate(
+              event.target.value === 'Attendee'
+                ? `${location.origin}/attendee.png`
+                : `${location.origin}/staff.png`
+            );
+          }}
           className="w-full border border-gray-400 p-1 border-none text-black"
         >
           <option value="">Select a role</option>
@@ -136,3 +156,5 @@ export const AIForm = ({
     </form>
   );
 };
+
+export default AIForm;
