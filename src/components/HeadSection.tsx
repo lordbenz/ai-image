@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
-import Typed from "typed.js";
+import React, { useEffect } from 'react';
+import Typed from 'typed.js';
 
 export const HeadSection = () => {
   useEffect(() => {
-    new Typed(".typing-element", {
-      strings: ["Personalize Your Event Tickets with AI-Generated Art"],
+    new Typed('.typing-element', {
+      strings: [
+        'Personalize Your Event Tickets with AI-Generated Art',
+      ],
       typeSpeed: 50,
       startDelay: 1000,
-      showCursor: true,
+      showCursor: false,
     });
   }, []);
 

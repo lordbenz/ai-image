@@ -1,22 +1,14 @@
 // AIForm.tsx
-import React, { useState, useRef } from "react";
-import { FormData } from "../types/types";
+import React, { useState, useRef } from 'react';
+import { FormData } from '../types/types';
 type AIFormProps = {
   onSubmit: (data: FormData) => void;
 };
 
 export const AIForm = ({ onSubmit }: AIFormProps) => {
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
+  const [name, setName] = useState('');
+  const [role, setRole] = useState('');
   const imageInput = useRef<HTMLInputElement>(null);
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setRole(event.target.value);
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -40,7 +32,7 @@ export const AIForm = ({ onSubmit }: AIFormProps) => {
           name="name"
           value={name}
           placeholder="Enter your name"
-          onChange={handleNameChange}
+          onChange={(event) => setName(event.target.value)}
           className="w-full border border-gray-400 p-1 text-black"
         />
       </div>
@@ -52,7 +44,7 @@ export const AIForm = ({ onSubmit }: AIFormProps) => {
           id="role"
           name="role"
           value={role}
-          onChange={handleRoleChange}
+          onChange={(event) => setRole(event.target.value)}
           className="w-full border border-gray-400 p-1 border-none text-black"
         >
           <option value="">Select a role</option>
@@ -62,7 +54,10 @@ export const AIForm = ({ onSubmit }: AIFormProps) => {
         </select>
       </div>
       <div className="mb-4">
-        <label htmlFor="image" className="block font-medium mb-2 border-none">
+        <label
+          htmlFor="image"
+          className="block font-medium mb-2 border-none"
+        >
           Image:
         </label>
         <input
@@ -74,7 +69,10 @@ export const AIForm = ({ onSubmit }: AIFormProps) => {
           className="w-full border border-gray-400 p-1 border-none"
         />
       </div>
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+      <button
+        type="submit"
+        className="bg-blue-500 text-white p-2 rounded"
+      >
         Submit
       </button>
     </form>

@@ -1,33 +1,30 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import { Sponsor } from "@/components/Sponsor";
-import { HeadSection } from "@/components/HeadSection";
-import { AIForm } from "@/components/AIForm";
-import ImageResult from "@/components/ImageResult";
-import { useState } from "react";
-import { FormData } from "../types/types";
-const inter = Inter({ subsets: ["latin"] });
+import { Sponsor } from '@/components/Sponsor';
+import { HeadSection } from '@/components/HeadSection';
+import { AIForm } from '@/components/AIForm';
+import ImageResult from '@/components/ImageResult';
+import { useState } from 'react';
+import { FormData } from '../types/types';
 
 export default function Home() {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    null
+  );
 
   const handleSubmit = (data: FormData) => {
-    if (data) {
-      console.log({submitData: data});
-      // TODO: Set imagePreview to result
+    if (!data) return;
 
-      const result = generatedAIImageURL(data.image as File);
-      setImagePreview(result);
-    }
+    console.log({ submitData: data });
+    // TODO: Set imagePreview to result
+
+    const result = generatedAIImageURL(data.image as File);
+    setImagePreview(result);
   };
 
-  const generatedAIImageURL = (file: File) =>  {
+  const generatedAIImageURL = (file: File) => {
     // TODO: Generate AI Image
-    
-    return 'https://via.placeholder.com/250x350'
-  }
+
+    return 'https://via.placeholder.com/250x350';
+  };
 
   return (
     <>
@@ -38,7 +35,7 @@ export default function Home() {
             <AIForm onSubmit={handleSubmit} />
           </div>
           <div className="flex w-full md:w-1/2 m-10">
-          <ImageResult imagePreview={imagePreview} />
+            <ImageResult imagePreview={imagePreview} />
           </div>
         </div>
         <Sponsor />
