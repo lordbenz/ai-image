@@ -1,6 +1,8 @@
 // AIForm.tsx
-import React, { useState, useRef } from 'react';
+import { uploadImage } from '@/services/ai';
+import React, { useState, ChangeEvent } from 'react';
 import { FormData } from '../types/types';
+
 type AIFormProps = {
   onSubmit: (data: FormData) => void;
 };
@@ -8,17 +10,33 @@ type AIFormProps = {
 export const AIForm = ({ onSubmit }: AIFormProps) => {
   const [name, setName] = useState('');
   const [role, setRole] = useState('');
-  const imageInput = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File>();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
+    if (!imageFile) return;
+    const uploadImageResponse = await uploadImage(imageFile);
+    const url = new URL(uploadImageResponse.data.data.url);
+
     const formSubmitData: FormData = {
       name,
       role,
-      image: imageInput.current?.files?.[0] || null,
+      imageUrl: `${url.origin}/dl${url.pathname}`,
     };
     onSubmit(formSubmitData);
   };
+
+  const handleUploadImage = async (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files?.[0]) {
+      setImageFile(event.target.files[0]);
+    }
+  };
+
+  const disabled = !imageFile || name === '' || role === '';
 
   return (
     <form onSubmit={handleSubmit} className="">
@@ -50,7 +68,7 @@ export const AIForm = ({ onSubmit }: AIFormProps) => {
           <option value="">Select a role</option>
           <option value="Attendee">Attendee</option>
           <option value="Staff">Staff</option>
-          <option value="Sponsor">Sponsor</option>
+          {/* <option value="Sponsor">Sponsor</option> */}
         </select>
       </div>
       <div className="mb-4">
@@ -65,13 +83,18 @@ export const AIForm = ({ onSubmit }: AIFormProps) => {
           accept="image/*"
           id="image"
           name="image"
-          ref={imageInput}
+          onChange={handleUploadImage}
           className="w-full border border-gray-400 p-1 border-none"
         />
       </div>
       <button
         type="submit"
-        className="bg-blue-500 text-white p-2 rounded"
+        className={
+          disabled
+            ? 'bg-gray-500 text-white p-2 rounded cursor-not-allowed'
+            : 'bg-blue-500 text-white p-2 rounded'
+        }
+        disabled={disabled}
       >
         Submit
       </button>
