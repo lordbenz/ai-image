@@ -36,6 +36,9 @@ const CardCanvas = () => {
     resize();
 
     window.addEventListener('resize', resize);
+    canvas.on('object:modified', (e) => {
+      console.debug(e);
+    });
     return () => {
       canvas.dispose();
       window.removeEventListener('resize', resize);
@@ -48,8 +51,9 @@ const CardCanvas = () => {
       ref={canvasRef}
       id="fabricCanvas"
       style={{
-        height: '100%',
-        width: '100%',
+        height: '1024px',
+        width: '1024px',
+        visibility: 'hidden',
       }}
     />
   );

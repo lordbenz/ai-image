@@ -18,8 +18,8 @@ const AIForm = ({
   setTemplate,
   setImagePreview,
 }: AIFormProps) => {
-  // const [name, setName] = useState('');
-  const [role, setRole] = useState('');
+  const [name, setName] = useState('');
+  const [role, setRole] = useState('Attendee');
   const [imageFile, setImageFile] = useState<File>();
 
   const handleSubmit = async (
@@ -32,7 +32,7 @@ const AIForm = ({
     const url = new URL(uploadImageResponse.data.data.url);
 
     const formSubmitData: FormData = {
-      name: '',
+      name,
       role,
       imageUrl: `${url.origin}/dl${url.pathname}`,
     };
@@ -59,7 +59,7 @@ const AIForm = ({
 
   return (
     <form onSubmit={handleSubmit} className="">
-      {/* <div className="mb-4">
+      <div className="mb-4">
         <label htmlFor="name" className="block  font-medium mb-2">
           Name:
         </label>
@@ -72,7 +72,7 @@ const AIForm = ({
           onChange={(event) => setName(event.target.value)}
           className="w-full border border-gray-400 p-1 text-black"
         />
-      </div> */}
+      </div>
       <div className="mb-4">
         <label htmlFor="role" className="block font-medium mb-2">
           Role:
@@ -80,7 +80,7 @@ const AIForm = ({
         <select
           id="role"
           name="role"
-          value={role}
+          defaultValue="role"
           onChange={(event) => {
             setRole(event.target.value);
 
@@ -92,7 +92,7 @@ const AIForm = ({
           }}
           className="w-full border border-gray-400 p-1 border-none text-black"
         >
-          <option value="">Select a role</option>
+          <option value="role">Select a role</option>
           <option value="Attendee">Attendee</option>
           <option value="Staff">Staff</option>
           {/* <option value="Sponsor">Sponsor</option> */}
@@ -138,7 +138,7 @@ const AIForm = ({
                   cy="12"
                   r="10"
                   stroke="currentColor"
-                  stroke-width="4"
+                  strokeWidth="4"
                 ></circle>
                 <path
                   className="opacity-75"
