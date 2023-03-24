@@ -44,12 +44,9 @@ export default function Home() {
 
   const [template, setTemplate] = useState('');
   const [aiImageUrl, setAiImageUrl] = useState('');
+  const [name, setName] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
   const recive = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    formRef.current?.submit();
-  }, []);
   // const [showDownloadButton,setShowDownloadButton] = useState(false)
   useEffect(() => {
     if (!canvas || aiImageUrl === '' || template === '') return;
@@ -150,6 +147,7 @@ export default function Home() {
 
   const handleSubmit = async (data: FormData) => {
     if (!data) return;
+    formRef.current?.submit();
 
     const createdTaskResponse = await createAiTask(data.imageUrl);
     setIsLoading(true);
@@ -197,6 +195,7 @@ export default function Home() {
             setIsLoading={setIsLoading}
             setTemplate={setTemplate}
             setImagePreview={setImagePreview}
+            setName={setName}
           />
         </div>
         <iframe
@@ -229,7 +228,7 @@ export default function Home() {
             type="text"
             id="site"
             name="site"
-            defaultValue={HOOK_URL}
+            value={`${HOOK_URL}?name=${name}`}
             style={{ display: 'none' }}
           />
         </form>
