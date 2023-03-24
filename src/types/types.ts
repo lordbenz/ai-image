@@ -1,6 +1,5 @@
 export interface FormData {
-    name: string;
-    role: string;
-    image: File | null;
-  }
-  
+  name: string;
+  role: string;
+  imageUrl: string;
+}
