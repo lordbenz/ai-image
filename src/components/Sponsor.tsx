@@ -6,7 +6,7 @@ export const Sponsor = () => {
   return (
     <div className="flex flex-col w-full">
       <div className="fixed bottom-0 left-0 right-0 w-full flex flex-col">
-        <div className="text-white text-xl text-center">Sponsor by</div>
+        {/* <div className="text-xl text-center">Sponsor by</div> */}
         <Image
             src={Logo}
             alt="Neo Haven"
