@@ -60,7 +60,7 @@ const AIForm = ({
   const disabled = !imageFile || role === '';
 
   return (
-    <form onSubmit={handleSubmit} className="">
+    <form onSubmit={handleSubmit} className="w-full">
       <div className="mb-4">
         <label htmlFor="name" className="block  font-medium mb-2">
           Name:
@@ -123,8 +123,8 @@ const AIForm = ({
         type="submit"
         className={
           disabled
-            ? 'bg-gray-500 text-white p-2 rounded cursor-not-allowed'
-            : 'bg-blue-500 text-white p-2 rounded'
+            ? 'bg-gray-500 text-white p-2 rounded cursor-not-allowed block mx-auto w-20'
+            : 'bg-blue-500 text-white p-2 rounded block mx-auto w-20'
         }
         disabled={disabled}
       >
