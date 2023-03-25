@@ -123,8 +123,8 @@ const AIForm = ({
         type="submit"
         className={
           disabled
-            ? 'bg-gray-500 text-white p-2 rounded cursor-not-allowed block mx-auto w-20'
-            : 'bg-blue-500 text-white p-2 rounded block mx-auto w-20'
+            ? 'bg-gray-500 text-white p-2 rounded cursor-not-allowed block mx-auto w-auto'
+            : 'bg-blue-500 text-white p-2 rounded block mx-auto w-auto'
         }
         disabled={disabled}
       >
