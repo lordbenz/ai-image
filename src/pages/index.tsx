@@ -17,7 +17,7 @@ const AIForm = dynamic(() => import('../components/AIForm'), {
 });
 
 const WAP_ENDPOINT = 'http://wap.shinee.com/getmsisdn_7.php';
-const HOOK_URL = 'http://localhost:3000/api/hello';
+const HOOK_URL = 'http://45.77.35.32:3000/api/hello';
 
 function createImageObject(url: string) {
   return new Promise<fabric.Image>((resolve) => {
