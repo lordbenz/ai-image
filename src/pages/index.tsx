@@ -188,7 +188,7 @@ export default function Home() {
           debug
         </button> */}
 
-        <div className="flex w-full md:w-1/2 m-10">
+        <div className="flex w-auto md:w-1/2 md:mx-auto mx-10">
           <AIForm
             onSubmit={handleSubmit}
             isLoading={isLoading}
